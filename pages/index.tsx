@@ -1,7 +1,9 @@
-import { useEffect, useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import * as d3 from "d3";
 import data from "../utils/countries-110m.json";
 import { feature } from "topojson-client";
+import { FiArrowDown } from "react-icons/fi";
+import classNames from "classnames";
 
 const locations = [
     {label: "New York, NY", y: 40.7128, x: -74.0060, type: "lived", time: 14},
@@ -185,27 +187,182 @@ export default function Index() {
                     </radialGradient>
                 </defs>
             </svg>
-            <div className="z-5 relative p-8 text-white">
-                <h1 className="text-6xl leading-tight font-tiempos mb-8">Good {TOD}, <i>Chronicle</i>.<br/>Welcome to my portfolio.</h1>
-                <div className="flex items-center">
-                    <img src="/profile.jpg" className="rounded-full w-16 h-16" alt="Profile picture of Samson Zhang" />
-                    <div className="text-xl leading-tight pl-4">
-                        <p className="font-bold text-[#4AA0A6]">Samson Zhang</p>
-                        <p className="text-[#757575]">@wwsalmon</p>
+            <div className="z-5 relative">
+                <div className="p-16 text-white min-h-screen border-box relative">
+                    <h1 className="text-5xl leading-tight font-headline mb-8">Good {TOD}, <i>Chronicle</i>.<br/>Welcome to my journalism and software portfolio!</h1>
+                    <div className="flex items-center">
+                        <img src="/profile.jpg" className="rounded-full w-16 h-16" alt="Profile picture of Samson Zhang" />
+                        <div className="text-xl leading-tight pl-4">
+                            <p className="font-bold text-bblue">Samson Zhang</p>
+                            <p className="text-[#757575]">@wwsalmon</p>
+                        </div>
+                    </div>
+                    <div className="absolute bottom-12 right-12 bg-black bg-opacity-50 p-4 rounded-md">
+                        <p className="font-bold mb-4 uppercase">Notable places in my life</p>
+                        {[
+                            {label: "where I've lived", circle: <div className="rounded-full w-4 h-4 bg-white opacity-60"/>},
+                            {label: "where I live now", circle: <div className="rounded-full w-4 h-4 bg-amber-500 opacity-60"/>},
+                            {label: "where I want to be this summer", circle: <div className="rounded-full w-4 h-4 border-4 border-amber-500 opacity-60"/>},
+                        ].map(d => (
+                            <div className="flex items-center" key={d.label}>
+                                {d.circle}
+                                <p className="ml-4 opacity-75">{d.label}</p>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="absolute bottom-16 left-16">
+                        <p className="font-bold mb-4 uppercase">Scroll down!</p>
+                        <div className="rounded-full w-8 h-8 bg-bblue bg-opacity-75 shadow-lg animate-bounce flex items-center justify-center">
+                            <FiArrowDown/>
+                        </div>
                     </div>
                 </div>
-                <p className="font-bold mb-4 mt-32">Notable places in my life</p>
-                {[
-                    {label: "where I've lived", circle: <div className="rounded-full w-4 h-4 bg-white opacity-60"/>},
-                    {label: "where I live now", circle: <div className="rounded-full w-4 h-4 bg-amber-500 opacity-60"/>},
-                    {label: "where I want to be this summer", circle: <div className="rounded-full w-4 h-4 border-4 border-amber-500 opacity-60"/>},
-                ].map(d => (
-                    <div className="flex items-center" key={d.label}>
-                        {d.circle}
-                        <p className="ml-4 opacity-75">{d.label}</p>
+                <div className="p-16 min-h-screen bg-white">
+                    <ThreeColContainer>
+                        <ThreeColChild>
+                            <H1>First and foremost, I'm a journalist.</H1>
+                            <p className="font-body text-xl">Hello world</p>
+                        </ThreeColChild>
+                        <ThreeColChild>
+                            <Post
+                                title="Preventing ‘double punishment’: Inside the campaign to end California’s prison-to-deportation pipeline"
+                                href="https://theyappie.com/california-deportations-southeast-asian/"
+                                img="/sjn.png"
+                                description="A solutions piece on a decade of organizing against the deportation of formerly incarcerated Southeast Asian refugees in California."
+                                publication="The Yappie"
+                            />
+                            <Bullet>Funded by a Solutions Journalism Network Advancing Democracy grant</Bullet>
+                            <Bullet>Cited by AAAJ-Asian Law Caucus and other advocacy orgs</Bullet>
+                            <Post
+                                className="mt-20"
+                                title="Invasion of Ukraine weighs heavily on 5C community members with connections to the conflict"
+                                href="https://tsl.news/ukraine-russia-war-5c-student-impact/"
+                                img="/ukraine.jpg"
+                                description="When Maria Lyven PO '22 asked her family how they were doing last week, her mother told her that she woke up to the sound of explosions."
+                                publication="The Student Life"
+                                small={true}
+                            />
+                        </ThreeColChild>
+                        <ThreeColChild>
+                            <Post
+                                title="Journalism’s influential awards lack diverse judges"
+                                href="https://objectivejournalism.org/2022/08/journalism-awards-lack-diverse-judges/"
+                                img="/aaja.png"
+                                description="A groundbreaking investigative finding that people of color are often still the only person of their race in the (judging) room."
+                                publication="AAJA Voices"
+                            />
+                            <Bullet>Presented at AAJA's 2022 National Convention</Bullet>
+                            <Bullet>Led to advocacy for change by LA Times Exec. Editor Kevin Merida, NAHJ President Yvette Cabrera and other news leaders</Bullet>
+                            <Post
+                                className="mt-20"
+                                small={true}
+                                title="Voters oust San Francisco school board members in historic race that galvanized AAPIs"
+                                href="https://theyappie.com/san-francisco-recall-asian-american-pacific-islander/"
+                                img="/lowell.jpg"
+                                description="The city’s first Pacific Islander elected leader was one of three officials recalled in Tuesday’s high-stakes special election, which featured a surge in AAPI activism."
+                                publication="The Yappie"
+                            />
+                        </ThreeColChild>
+                    </ThreeColContainer>
+                    <div className="mx-auto max-w-2xl">
                     </div>
-                ))}
+                </div>
+                <div className="p-16 min-h-screen bg-bblue text-white">
+                    <ThreeColContainer>
+                        <ThreeColChild>
+                            <H1>But I love using data and web tools to tell important and engaging stories.</H1>
+                            <p className="font-body text-xl">Hello world</p>
+                        </ThreeColChild>
+                        <ThreeColChild>
+                            <Post
+                                title="Data visualization: first-generation, Black student percentages drop in Pomona’s class of 2025"
+                                href="https://tsl.news/pomona-class-of-2025-diversity/"
+                                img="/co2025.gif"
+                                description="Pomona's most selective class to date is also its least diverse in several years."
+                                publication="The Student Life"
+                                dark={true}
+                            />
+                            <Bullet dark={true}>
+                                Awarded Best Interactive Graphic of 2021 by the California College Media Association
+                            </Bullet>
+                            <Post
+                                className="mt-20"
+                                title="The Cost of Increasing Costs: Accounting for tuition increases at the 5Cs"
+                                href="https://tsl-tuition-datavis-2022.vercel.app"
+                                img="/tuition.gif"
+                                description="Investigative data piece visualizing eight years of school financial reports to explain why tuition consistently increases more than inflation."
+                                publication="The Student Life"
+                                dark={true}
+                            />
+                        </ThreeColChild>
+                        <ThreeColChild>
+                            <Post
+                                title="5C COVID Tracker"
+                                href="https://tsl-covid.samsonzhang.com"
+                                img="/covid.gif"
+                                description="Interactive dashboard that faculty relied on for decision-making in lieu of consistent administration reporting, and that exposed official counting errors."
+                                publication="The Student Life"
+                                dark={true}
+                            />
+                            <Bullet dark={true}>
+                                Part of a package awarded Best COVID Coverage of 2021 by the California College Media Association
+                            </Bullet>
+                            <Post
+                                title="Data visualization: Pomona, Harvey Mudd admit 2026 classes with record diversity"
+                                href="https://tsl.news/pomona-hmc-co2026-diversity/"
+                                className="mt-20"
+                                img="/co2026.gif"
+                                description="With 61.4% domestic students of color accepted at Pomona and 70% at Harvey Mudd, the pools of admitted first years are on track to form the most diverse class profiles in both colleges’ histories."
+                                publication="The Student Life"
+                                dark={true}
+                            />
+                        </ThreeColChild>
+                    </ThreeColContainer>
+                </div>
             </div>
         </>
     );
 }
+
+const ThreeColContainer = ({children, className}: {children: ReactNode, className?: string}) => (
+    <div className={classNames("flex max-w-6xl mx-auto", className)}>
+        {children}
+    </div>
+)
+
+const ThreeColChild = ({children, className}: {children: ReactNode, className?: string}) => (
+    <div className={classNames("w-1/3 px-8", className)}>
+        {children}
+    </div>
+)
+
+const Post = ({title, href, img, description, publication, className, small, dark}: {title: string, href: string, img: string, description: string, publication: string, className?: string, small?: boolean, dark?: boolean}) => (
+    <a href={href} className={classNames("block", className)}>
+        {!small && (
+            <img src={img} />
+        )}
+        <p className={classNames("font-bold uppercase my-4", dark ? "opacity-75" : "text-bblue")}>{publication}</p>
+        <div className="flex my-4">
+            <h2 className={classNames("font-headline font-medium", small ? "text-lg" : "text-2xl")}>{title}</h2>
+            {small && (
+                <div className="w-24 flex-shrink-0">
+                    <img src={img} className="w-24 h-24 object-cover ml-4"/>
+                </div>
+            )}
+        </div>
+        <p className={dark ? "opacity-50" : "text-bgray"}>{description}</p>
+    </a>
+)
+
+const Bullet = ({className, children, dark}: {className?: string, children: ReactNode, dark?: boolean}) => (
+    <div className={classNames("flex my-3", className, dark && "opacity-75")}>
+        <div className={classNames("w-[6px] h-[5px] mt-2 mr-3 flex-shrink-0", dark ? "bg-white" : "bg-bblue")}/>
+        <p className="font-bold leading-tight">{children}</p>
+    </div>
+)
+
+const H1 = ({className, children}: {className?: string, children: ReactNode}) => (
+    <h1 className={classNames("text-4xl font-bold mb-4", className)}>
+        {children}
+    </h1>
+)
