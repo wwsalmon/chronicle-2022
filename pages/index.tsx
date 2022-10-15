@@ -221,7 +221,7 @@ export default function Index() {
                     <ThreeColContainer>
                         <ThreeColChild>
                             <H1>First and foremost, I'm a journalist.</H1>
-                            <p className="font-body text-xl">Hello world</p>
+                            {/*<p className="font-body text-xl">Hello world</p>*/}
                         </ThreeColChild>
                         <ThreeColChild>
                             <Post
@@ -271,7 +271,7 @@ export default function Index() {
                     <ThreeColContainer>
                         <ThreeColChild>
                             <H1>But I love using data and web tools to tell important and engaging stories.</H1>
-                            <p className="font-body text-xl">Hello world</p>
+                            {/*<p className="font-body text-xl">Hello world</p>*/}
                         </ThreeColChild>
                         <ThreeColChild>
                             <Post
@@ -319,11 +319,11 @@ export default function Index() {
                         </ThreeColChild>
                     </ThreeColContainer>
                 </div>
-                <div className="p-16 min-h-screen bg-[#222] text-white">
+                <div className="p-16 min-h-screen bg-[#222] bg-opacity-60 text-white">
                     <ThreeColContainer>
                         <ThreeColChild>
                             <H1>Before journalism, building software was my jam.</H1>
-                            <p className="font-body text-xl">Hello world</p>
+                            {/*<p className="font-body text-xl">Hello world</p>*/}
                         </ThreeColChild>
                         <ThreeColChild>
                             <Website href="https://postulate.us" img="/postulate.png"/>
@@ -333,6 +333,24 @@ export default function Index() {
                             <Website href="https://gostoryboard.org" img="/storyboard.jpg" className="mt-20"/>
                             <Website href="https://questionjournal.szh.land" img="/qj.png" className="mt-20"/>
                             <Website href="https://threader.szh.land" img="/threader.png" className="mt-20"/>
+                        </ThreeColChild>
+                    </ThreeColContainer>
+                </div>
+                <div className="p-16 min-h-screen bg-[#666] bg-opacity-60 text-white">
+                    <ThreeColContainer>
+                        <ThreeColChild>
+                            <H1>Now I want journalism to be my future.</H1>
+                            <p className="font-body text-xl">I would love to continue my journey at the Chronicle. Thanks for your consideration ♥</p>
+                        </ThreeColChild>
+                        <ThreeColChild>
+                            <img src="/voices.jpg" className="mb-16"/>
+                            <img src="/vtn.jpg"/>
+                        </ThreeColChild>
+                        <ThreeColChild>
+                            <p className="font-bold mb-4 uppercase">References you can ask about me</p>
+                            <Bullet dark={true}>Jasper Davidoff (jlda2018@mymail.pomona.edu), my Editor-in-chief at The Student Life</Bullet>
+                            <Bullet dark={true}>Rahul Mukherjee (r.mukherjee5@icloud.com), Hearst Interactives Editor and my editor at AAJA Voices</Bullet>
+                            <Bullet dark={true}>Andrew Peng (andrew.peng@theyappie.com), President of The Yappie</Bullet>
                         </ThreeColChild>
                     </ThreeColContainer>
                 </div>
