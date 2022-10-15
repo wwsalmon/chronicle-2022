@@ -376,7 +376,7 @@ export default function Index() {
                         <ThreeColChild>
                             <p className="font-bold mb-4 uppercase">References you can ask about me</p>
                             <Bullet dark={true}>Jasper Davidoff (jlda2018@mymail.pomona.edu), my Editor-in-chief at The Student Life</Bullet>
-                            <Bullet dark={true}>Rahul Mukherjee (r.mukherjee5@icloud.com), Hearst Interactives Editor and my editor at AAJA Voices</Bullet>
+                            {/*<Bullet dark={true}>Rahul Mukherjee (r.mukherjee5@icloud.com), Hearst Interactives Editor and my editor at AAJA Voices</Bullet>*/}
                             <Bullet dark={true}>Andrew Peng (andrew.peng@theyappie.com), President of The Yappie</Bullet>
                         </ThreeColChild>
                     </ThreeColContainer>
