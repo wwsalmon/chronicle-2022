@@ -188,8 +188,8 @@ export default function Index() {
                 </defs>
             </svg>
             <div className="z-5 relative">
-                <div className="p-16 text-white min-h-screen border-box relative">
-                    <h1 className="text-5xl leading-tight font-headline mb-8">Good {TOD}, <i>Chronicle</i>.<br/>Welcome to my journalism and software portfolio!</h1>
+                <Section className="text-white border-box relative">
+                    <h1 className="text-3xl sm:text-5xl leading-tight sm:leading-tight font-headline mb-8">Good {TOD}, <i>Chronicle</i>.<br/>Welcome to my journalism and software portfolio!</h1>
                     <div className="flex items-center">
                         <img src="/profile.jpg" className="rounded-full w-16 h-16" alt="Profile picture of Samson Zhang" />
                         <div className="text-xl leading-tight pl-4">
@@ -197,7 +197,7 @@ export default function Index() {
                             <p className="text-[#757575]">@wwsalmon</p>
                         </div>
                     </div>
-                    <div className="absolute bottom-12 right-12 bg-black bg-opacity-50 p-4 rounded-md">
+                    <div className="sm:absolute bottom-12 right-12 mt-12 bg-black bg-opacity-50 p-4 rounded-md">
                         <p className="font-bold mb-4 uppercase">Notable places in my life</p>
                         {[
                             {label: "where I've lived", circle: <div className="rounded-full w-4 h-4 bg-white opacity-60"/>},
@@ -210,14 +210,14 @@ export default function Index() {
                             </div>
                         ))}
                     </div>
-                    <div className="absolute bottom-16 left-16">
+                    <div className="absolute bottom-8 sm:bottom-16 left-8 sm:left-16">
                         <p className="font-bold mb-4 uppercase">Scroll down!</p>
                         <div className="rounded-full w-8 h-8 bg-bblue bg-opacity-75 shadow-lg animate-bounce flex items-center justify-center">
                             <FiArrowDown/>
                         </div>
                     </div>
-                </div>
-                <div className="p-16 min-h-screen bg-white">
+                </Section>
+                <Section className="bg-white">
                     <ThreeColContainer>
                         <ThreeColChild>
                             <H1>First and foremost, I'm a journalist.</H1>
@@ -264,10 +264,8 @@ export default function Index() {
                             />
                         </ThreeColChild>
                     </ThreeColContainer>
-                    <div className="mx-auto max-w-2xl">
-                    </div>
-                </div>
-                <div className="p-16 min-h-screen bg-bblue text-white">
+                </Section>
+                <Section className="bg-bblue text-white">
                     <ThreeColContainer>
                         <ThreeColChild>
                             <H1>But I love using data and web tools to tell important and engaging stories.</H1>
@@ -318,8 +316,8 @@ export default function Index() {
                             />
                         </ThreeColChild>
                     </ThreeColContainer>
-                </div>
-                <div className="p-16 min-h-screen bg-[#222] bg-opacity-60 text-white">
+                </Section>
+                <Section className="bg-[#222] bg-opacity-60 text-white">
                     <ThreeColContainer>
                         <ThreeColChild>
                             <H1>Before journalism, building software was my jam.</H1>
@@ -335,8 +333,8 @@ export default function Index() {
                             <Website href="https://threader.szh.land" img="/threader.png" className="mt-20"/>
                         </ThreeColChild>
                     </ThreeColContainer>
-                </div>
-                <div className="p-16 min-h-screen bg-[#666] bg-opacity-60 text-white">
+                </Section>
+                <Section className="bg-[#666] bg-opacity-60 text-white">
                     <ThreeColContainer>
                         <ThreeColChild>
                             <H1>Now I want journalism to be my future.</H1>
@@ -354,20 +352,26 @@ export default function Index() {
                             <Bullet dark={true}>Andrew Peng (andrew.peng@theyappie.com), President of The Yappie</Bullet>
                         </ThreeColChild>
                     </ThreeColContainer>
-                </div>
+                </Section>
             </div>
         </>
     );
 }
 
+const Section = ({children, className}: {children: ReactNode, className?: string}) => (
+    <div className={classNames("p-8 md:p-16 min-h-screen", className)}>
+        {children}
+    </div>
+)
+
 const ThreeColContainer = ({children, className}: {children: ReactNode, className?: string}) => (
-    <div className={classNames("flex max-w-6xl mx-auto", className)}>
+    <div className={classNames("md:flex max-w-6xl mx-auto", className)}>
         {children}
     </div>
 )
 
 const ThreeColChild = ({children, className}: {children: ReactNode, className?: string}) => (
-    <div className={classNames("w-1/3 px-8", className)}>
+    <div className={classNames("md:w-1/3 md:px-8 mb-20 md:mb-0", className)}>
         {children}
     </div>
 )
