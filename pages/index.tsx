@@ -26,7 +26,6 @@ export default function Index() {
             .attr("width", width)
             .attr("height", height)
             .attr("viewbox", `0 0 ${width} ${height}`)
-            .style("position", "fixed");
 
         const scaleZoom = 0.8;
 
@@ -105,7 +104,6 @@ export default function Index() {
             .attr("cx", xOffset)
             .attr("cy", yOffset)
             .attr("r", projection.scale())
-            .attr("class", "noclicks")
             .style("fill", "url(#globe_highlight)");
 
         svg
@@ -113,7 +111,6 @@ export default function Index() {
             .attr("cx", xOffset)
             .attr("cy", yOffset)
             .attr("r", projection.scale())
-            .attr("class", "noclicks")
             .style("fill", "url(#globe_shading)");
 
         function drawMarkers() {
@@ -162,9 +159,16 @@ export default function Index() {
         },200);
     }, [svgRef.current]);
 
+    const TOD = (() => {
+        const currHour = new Date().getHours();
+        if (currHour < 12) return "morning";
+        if (currHour < 18) return "afternoon";
+        return "evening";
+    })();
+
     return (
         <>
-            <svg ref={svgRef}>
+            <svg ref={svgRef} className="fixed top-0 left-0 right-0 bottom-0">
                 <defs>
                     {/*from http://bl.ocks.org/lunarmoon26/09d4d0ef25fd32ed663db969f5bc79fe*/}
                     <radialGradient cx="75%" cy="25%" id="globe_highlight">
@@ -181,6 +185,27 @@ export default function Index() {
                     </radialGradient>
                 </defs>
             </svg>
+            <div className="z-5 relative p-8 text-white">
+                <h1 className="text-6xl leading-tight font-tiempos mb-8">Good {TOD}, <i>Chronicle</i>.<br/>Welcome to my portfolio.</h1>
+                <div className="flex items-center">
+                    <img src="/profile.jpg" className="rounded-full w-16 h-16" alt="Profile picture of Samson Zhang" />
+                    <div className="text-xl leading-tight pl-4">
+                        <p className="font-bold text-[#4AA0A6]">Samson Zhang</p>
+                        <p className="text-[#757575]">@wwsalmon</p>
+                    </div>
+                </div>
+                <p className="font-bold mb-4 mt-32">Notable places in my life</p>
+                {[
+                    {label: "where I've lived", circle: <div className="rounded-full w-4 h-4 bg-white opacity-60"/>},
+                    {label: "where I live now", circle: <div className="rounded-full w-4 h-4 bg-amber-500 opacity-60"/>},
+                    {label: "where I want to be this summer", circle: <div className="rounded-full w-4 h-4 border-4 border-amber-500 opacity-60"/>},
+                ].map(d => (
+                    <div className="flex items-center" key={d.label}>
+                        {d.circle}
+                        <p className="ml-4 opacity-75">{d.label}</p>
+                    </div>
+                ))}
+            </div>
         </>
     );
 }
