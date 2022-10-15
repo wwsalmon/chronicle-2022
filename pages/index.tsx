@@ -20,15 +20,20 @@ export default function Index() {
             .attr("viewbox", `0 0 ${width} ${height}`)
             .style("position", "fixed");
 
+        const scaleZoom = 0.8;
+
+        const xOffset = width / 2;
+        const yOffset = 0.3 * height + scaleZoom * width;
+
         const bg = svg.append("rect").attr("width", width).attr("height", height).attr("fill", "black");
 
         const sensitivity = 50;
 
         const projection = d3.geoOrthographic()
-            .scale(0.8 * height)
+            .scale(scaleZoom * width)
             .center([0, 0])
-            .rotate([100,-40, 0])
-            .translate([width / 2, height / 2]);
+            .rotate([98,10,0])
+            .translate([xOffset, yOffset]);
 
         const initialScale = projection.scale();
 
@@ -36,8 +41,8 @@ export default function Index() {
             .attr("fill", "#EEE")
             .attr("stroke", "#000")
             .attr("stroke-width", "0.2")
-            .attr("cx", width/2)
-            .attr("cy", height/2)
+            .attr("cx", xOffset)
+            .attr("cy", yOffset)
             .attr("r", initialScale)
             .style("fill", "url(#ocean_fill)");
 
@@ -105,27 +110,26 @@ export default function Index() {
 
         // drop shadows
         svg.append("circle")
-            .attr("cx", width/2)
-            .attr("cy", height/2)
+            .attr("cx", xOffset)
+            .attr("cy", yOffset)
             .attr("r", projection.scale())
             .attr("class", "noclicks")
             .style("fill", "url(#globe_highlight)");
 
         svg
             .append("circle")
-            .attr("cx", width/2)
-            .attr("cy", height/2)
+            .attr("cx", xOffset)
+            .attr("cy", yOffset)
             .attr("r", projection.scale())
             .attr("class", "noclicks")
             .style("fill", "url(#globe_shading)");
 
         d3.timer(function(elapsed) {
             const rotate = projection.rotate()
-            const k = sensitivity / projection.scale()
             projection.rotate([
-                rotate[0],
-                rotate[1],
-                rotate[2] - 0.02,
+                rotate[0] + 0.04 * Math.sin(elapsed / 2000),
+                rotate[1] + 0.01 * Math.sin(elapsed / 1500),
+                rotate[2],
             ]);
             path = d3.geoPath().projection(projection)
             svg.selectAll("path").attr("d", path)
