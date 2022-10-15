@@ -319,6 +319,23 @@ export default function Index() {
                         </ThreeColChild>
                     </ThreeColContainer>
                 </div>
+                <div className="p-16 min-h-screen bg-[#222] text-white">
+                    <ThreeColContainer>
+                        <ThreeColChild>
+                            <H1>Before journalism, building software was my jam.</H1>
+                            <p className="font-body text-xl">Hello world</p>
+                        </ThreeColChild>
+                        <ThreeColChild>
+                            <Website href="https://postulate.us" img="/postulate.png"/>
+                            <Website href="https://contrary.com" img="/contrary.jpg" className="mt-20"/>
+                        </ThreeColChild>
+                        <ThreeColChild>
+                            <Website href="https://gostoryboard.org" img="/storyboard.jpg" className="mt-20"/>
+                            <Website href="https://questionjournal.szh.land" img="/qj.png" className="mt-20"/>
+                            <Website href="https://threader.szh.land" img="/threader.png" className="mt-20"/>
+                        </ThreeColChild>
+                    </ThreeColContainer>
+                </div>
             </div>
         </>
     );
@@ -365,4 +382,10 @@ const H1 = ({className, children}: {className?: string, children: ReactNode}) =>
     <h1 className={classNames("text-4xl font-bold mb-4", className)}>
         {children}
     </h1>
+)
+
+const Website = ({className, href, img}: {className?: string, href: string, img: string}) => (
+    <a href={href} className={classNames("block transform hover:scale-105 transition", className)}>
+        <img src={img} className="rounded-lg"/>
+    </a>
 )
