@@ -344,7 +344,8 @@ export default function Index() {
                         </ThreeColChild>
                         <ThreeColChild>
                             <img src="/voices.jpg" className="mb-16"/>
-                            <img src="/vtn.jpg"/>
+                            <img src="/vtn.jpg" className="mb-16"/>
+                            <img src="/irena.png"/>
                         </ThreeColChild>
                         <ThreeColChild>
                             <p className="font-bold mb-4 uppercase">References you can ask about me</p>
