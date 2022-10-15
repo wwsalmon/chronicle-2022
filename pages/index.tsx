@@ -1,7 +1,15 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import * as d3 from "d3";
 import data from "../utils/countries-110m.json";
 import { feature } from "topojson-client";
+
+const locations = [
+    {label: "New York, NY", y: 40.7128, x: -74.0060, type: "lived", time: 14},
+    {label: "Boston, MA", y: 42.3601, x: -71.0589, type: "lived", time: 3},
+    {label: "Los Angeles, CA", y: 34.0522, x: -118.2437, type: "current", time: 2},
+    {label: "San Francisco, CA", y: 37.7749, x: -122.4194, type: "want", time: 1},
+    {label: "Farmington, UT", y: 40.9805, x: -111.8874, type: "lived", time: 1},
+];
 
 export default function Index() {
     const svgRef = useRef<SVGSVGElement | null>(null);
@@ -25,7 +33,10 @@ export default function Index() {
         const xOffset = width / 2;
         const yOffset = 0.3 * height + scaleZoom * width;
 
-        const bg = svg.append("rect").attr("width", width).attr("height", height).attr("fill", "black");
+        const bg = svg.append("rect")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("fill", "#010D12");
 
         const sensitivity = 50;
 
@@ -38,27 +49,17 @@ export default function Index() {
         const initialScale = projection.scale();
 
         svg.append("circle")
-            .attr("fill", "#EEE")
-            .attr("stroke", "#000")
+            .attr("fill", "#010D12")
+            .attr("stroke", "#fff")
             .attr("stroke-width", "0.2")
             .attr("cx", xOffset)
             .attr("cy", yOffset)
             .attr("r", initialScale)
-            .style("fill", "url(#ocean_fill)");
+            // .style("fill", "url(#ocean_fill)");
 
         let path = d3.geoPath().projection(projection);
 
-        // const graticule = d3.geoGraticule();
-        //
-        // svg.append("path")
-        //     .datum(graticule())
-        //     .attr("class", "graticule")
-        //     .attr("d", path)
-        //     .attr("fill", "none")
-        //     .attr("stroke", "#cccccc")
-        //     .attr("stroke-width", "0.5px");
-
-        // e might be wrong here (event)
+        // drag behavior
         svg
             .call(d3.drag<SVGSVGElement>().on("drag", e => {
                 const rotate = projection.rotate();
@@ -73,29 +74,9 @@ export default function Index() {
                 path = d3.geoPath().projection(projection);
 
                 svg.selectAll("path").attr("d", path);
-            }))
-            // .call(d3.zoom<SVGSVGElement>().on("zoom", e => {
-            //     if (e.transform.k > 0.3) {
-            //         projection.scale(initialScale * e.transform.k)
-            //         path = d3.geoPath().projection(projection)
-            //         svg.selectAll("path").attr("d", path)
-            //         globe.attr("r", projection.scale());
-            //     } else {
-            //         e.transform.k = 0.3;
-            //     }
-            // }));
+            }));
 
-        let map = svg.append("g");
-
-        console.log(d3.geoPath(projection)(feature(data, data.objects.land).features[0]));
-
-        map.append("g")
-            .attr("class", "land" )
-            .append("path")
-            .datum(feature(data, data.objects.land))
-            .attr("d", d => d3.geoPath(projection)(d))
-            .attr("fill", "rgb(117, 87, 57)");
-
+        // countries
         svg
             .append("g")
             .attr("class", "countries")
@@ -106,7 +87,18 @@ export default function Index() {
             .attr("d", d => d3.geoPath(projection)(d))
             .attr("stroke", "white")
             .attr("stroke-width", 0.5)
-            .attr("fill", "transparent");
+            .attr("fill", "#243E54");
+
+        // graticules
+        const graticule = d3.geoGraticule();
+
+        svg.append("path")
+            .datum(graticule())
+            .attr("class", "graticule")
+            .attr("d", path)
+            .attr("fill", "none")
+            .attr("stroke", "#cccccc")
+            .attr("stroke-width", "0.1px");
 
         // drop shadows
         svg.append("circle")
@@ -124,6 +116,39 @@ export default function Index() {
             .attr("class", "noclicks")
             .style("fill", "url(#globe_shading)");
 
+        function drawMarkers() {
+            svg.selectAll("circle.marker").data(locations)
+                .join("circle")
+                .attr("class", "marker")
+                .attr("cx", d => projection([d.x, d.y])[0])
+                .attr("cy", d => projection([d.x, d.y])[1])
+                .attr("fill", d => {
+                    const coordinate: [number, number] = [d.x, d.y];
+                    const gdistance = d3.geoDistance(coordinate, projection.invert([xOffset, yOffset]));
+                    if (gdistance > 1.57) return "none";
+                    return d.type === "current" ? "orange" : "white";
+                })
+                .attr("stroke", d => {
+                    const coordinate: [number, number] = [d.x, d.y];
+                    const gdistance = d3.geoDistance(coordinate, projection.invert([xOffset, yOffset]));
+                    if (gdistance > 1.57) return "none";
+                    return d.type === "want" ? "orange" : "none"
+                })
+                .attr("stroke-width", d => d.type === "want" ? 8 : 0.5)
+                .style("opacity", 0.6)
+                .attr("r", d => ((Math.log(d.time) + 1) * 12) + (+(d.type === "want") * 8));
+
+            svg.selectAll("text.markerText").data(locations)
+                .join("text")
+                .attr("class", "markerText")
+                .text(d => d.label)
+                .attr("x", d => projection([d.x, d.y])[0] + ((Math.log(d.time) + 1) * 12) + (+(d.type === "want") * 8) + 8)
+                .attr("y", d => projection([d.x, d.y])[1])
+                .attr("fill", "white")
+                .style("opacity", 0.5)
+                .attr("dominant-baseline", "middle");
+        }
+
         d3.timer(function(elapsed) {
             const rotate = projection.rotate()
             projection.rotate([
@@ -131,6 +156,7 @@ export default function Index() {
                 rotate[1] + 0.01 * Math.sin(elapsed / 1500),
                 rotate[2],
             ]);
+            drawMarkers();
             path = d3.geoPath().projection(projection)
             svg.selectAll("path").attr("d", path)
         },200);
@@ -141,20 +167,16 @@ export default function Index() {
             <svg ref={svgRef}>
                 <defs>
                     {/*from http://bl.ocks.org/lunarmoon26/09d4d0ef25fd32ed663db969f5bc79fe*/}
-                    <radialGradient cx="75%" cy="25%" id="ocean_fill">
-                        <stop offset="5%" stop-color="#ddf" />
-                        <stop offset="100%" stop-color="#9ab" />
-                    </radialGradient>
                     <radialGradient cx="75%" cy="25%" id="globe_highlight">
-                        <stop offset="5%" stop-color="#ffd" stop-opacity="0.6" />
-                        <stop offset="100%" stop-color="#ba9" stop-opacity="0.2" />
+                        <stop offset="5%" stop-color="#ffd" stop-opacity="0.3" />
+                        <stop offset="100%" stop-color="#ba9" stop-opacity="0.1" />
                     </radialGradient>
                     <radialGradient cx="50%" cy="40%" id="globe_shading">
                         <stop offset="50%" stop-color="#9ab" stop-opacity="0" />
-                        <stop offset="100%" stop-color="#3e6184" stop-opacity="0.3" />
+                        <stop offset="100%" stop-color="#3e6184" stop-opacity="0.15" />
                     </radialGradient>
                     <radialGradient cx="50%" cy="50%" id="drop_shadow">
-                        <stop offset="20%" stop-color="#000" stop-opacity="0.5" />
+                        <stop offset="20%" stop-color="#000" stop-opacity="0.25" />
                         <stop offset="100%" stop-color="#000" stop-opacity="0" />
                     </radialGradient>
                 </defs>
