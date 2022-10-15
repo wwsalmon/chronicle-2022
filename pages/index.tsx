@@ -192,10 +192,10 @@ export default function Index() {
                     <h1 className="text-3xl sm:text-5xl leading-tight sm:leading-tight font-headline mb-8">Good {TOD}, <i>Chronicle</i>.<br/>Welcome to my journalism and software portfolio!</h1>
                     <div className="flex items-center">
                         <img src="/profile.jpg" className="rounded-full w-16 h-16" alt="Profile picture of Samson Zhang" />
-                        <div className="text-xl leading-tight pl-4">
+                        <a className="text-xl leading-tight pl-4 block" href="https://twitter.com/wwsalmon">
                             <p className="font-bold text-bblue">Samson Zhang</p>
                             <p className="text-[#757575]">@wwsalmon</p>
-                        </div>
+                        </a>
                     </div>
                     <div className="sm:absolute bottom-12 right-12 mt-12 bg-black bg-opacity-50 p-4 rounded-md">
                         <p className="font-bold mb-4 uppercase">Notable places in my life</p>
