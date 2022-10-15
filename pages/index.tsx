@@ -4,6 +4,7 @@ import data from "../utils/countries-110m.json";
 import { feature } from "topojson-client";
 import { FiArrowDown } from "react-icons/fi";
 import classNames from "classnames";
+import Head from "next/head";
 
 const locations = [
     {label: "New York, NY", y: 40.7128, x: -74.0060, type: "lived", time: 14},
@@ -170,6 +171,9 @@ export default function Index() {
 
     return (
         <>
+            <Head>
+                <title>Samson's Chronicle Portfolio</title>
+            </Head>
             <svg ref={svgRef} className="fixed top-0 left-0 right-0 bottom-0">
                 <defs>
                     {/*from http://bl.ocks.org/lunarmoon26/09d4d0ef25fd32ed663db969f5bc79fe*/}
@@ -338,7 +342,7 @@ export default function Index() {
                     <ThreeColContainer>
                         <ThreeColChild>
                             <H1>Now I want journalism to be my future.</H1>
-                            <p className="font-body text-xl">I would love to continue my journey at the Chronicle. Thanks for your consideration ♥</p>
+                            <p className="font-body text-xl">I would love to continue my journey at the <i>Chronicle</i>. Thanks for your consideration ♥</p>
                         </ThreeColChild>
                         <ThreeColChild>
                             <img src="/voices.jpg" className="mb-16"/>
