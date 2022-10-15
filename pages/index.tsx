@@ -225,7 +225,13 @@ export default function Index() {
                     <ThreeColContainer>
                         <ThreeColChild>
                             <H1>First and foremost, I'm a journalist.</H1>
-                            {/*<p className="font-body text-xl">Hello world</p>*/}
+                            <Content>
+                                <P>Journalism to me is a way to be a part of and serve a community, whether that means producing timely breakers or building relationships for intensive solutions and investigative pieces.</P>
+                                <P>For the last two years, I’ve covered California AAPI politics and activism for <A href="http://theyappie.com/"><i>The Yappie</i></A>, a non-profit newsroom read by members of Congress, White House staff and advocacy leaders.</P>
+                                <P>As News Editor of my college weekly, I assigned and edited 6-8 stories per week and trained over a dozen writers with my co-editors.</P>
+                                <P>As an AAJA Voices Investigative Fellow this summer, I sharpened my investigative and data journalism skills learning from mentors from the LA Times, ProPublica and the <i>Chronicle</i>.</P>
+                                <P>I'll bring this news sense and experience with me, and keep building it, as a <i>Chronicle</i> intern.</P>
+                            </Content>
                         </ThreeColChild>
                         <ThreeColChild>
                             <Post
@@ -274,6 +280,12 @@ export default function Index() {
                         <ThreeColChild>
                             <H1>But I love using data and web tools to tell important and engaging stories.</H1>
                             {/*<p className="font-body text-xl">Hello world</p>*/}
+                            <Content>
+                                <P>It's one thing to hear about new COVID cases on campus in sporadic emails from administrators.</P>
+                                <P>It's another to see dots representing cases fill up a dashboard, color-coded by school, updated every week, with historical data clearly graphed and accessible.</P>
+                                <P>Digital tools open up myriad possibilities for not just informing community members, but empowering them to understand their own situations and make well-informed decisions or arguments.</P>
+                                <P>I hope to continue exploring these possibilities and serving the San Francisco/Bay Area community with them as an intern at the <i>Chronicle</i>.</P>
+                            </Content>
                         </ThreeColChild>
                         <ThreeColChild>
                             <Post
@@ -325,7 +337,14 @@ export default function Index() {
                     <ThreeColContainer>
                         <ThreeColChild>
                             <H1>Before journalism, building software was my jam.</H1>
-                            {/*<p className="font-body text-xl">Hello world</p>*/}
+                            <Content>
+                                <P>React, Express, NextJS, Django, PHP, d3.js, pandas, MongoDB, PostgreSQL...you name it, I've probably at least played around with it at some point. I'm even <A href="https://twitter.com/wwsalmon/status/1579748161580838912">teaching a web dev class</A> at my school!</P>
+                                <P>I love building webapps, and I'm good at building them fast. I built this entire portfolio you're seeing, d3-based globe and all, in six hours.</P>
+                                <P>I maintain my own <A href="https://postulate.us/@samsonzhang">notetaking</A> and <A href="https://updately.us/">social media</A> platforms, and I've worked for a whole host of different startups and freelance clients.</P>
+                                <P>On the data side, my team <A href="https://twitter.com/wwsalmon/status/1521228019469193216">won runner-up</A> at UCLA DataFest 2022, and I've been <A href="https://twitter.com/wwsalmon/status/1558682664944766977l">learning NLP</A> on the side.</P>
+                                <P>But it wasn't until AAJA Voices last summer that I worked with real data editors, and it was a thrilling experience — I became aware of visualization details and processes I (or my previous editors) never would have found otherwise.</P>
+                                <P>I will bring my technical background with me as an intern, and would love to keep learning about data visualization and news engineering from mentors at the <i>Chronicle</i>!</P>
+                            </Content>
                         </ThreeColChild>
                         <ThreeColChild>
                             <Website href="https://postulate.us" img="/postulate.png"/>
@@ -342,7 +361,12 @@ export default function Index() {
                     <ThreeColContainer>
                         <ThreeColChild>
                             <H1>Now I want journalism to be my future.</H1>
-                            <p className="font-body text-xl">I would love to continue my journey at the <i>Chronicle</i>. Thanks for your consideration ♥</p>
+                            <Content>
+                                <P>The first "real" story I ever pitched was about <A href="https://theyappie.com/aapi-activists-rising-above-hate/">community organizing in San Francisco Chinatown</A>, which came from me stumbling into a rally in Portsmouth Square.</P>
+                                <P>Some of my most formative experiences happened in San Francisco. In many ways it's responsible for both my journalism and software careers.</P>
+                                <P>I would love to return to San Francisco this summer as a <i>Chronicle</i> intern to continue my journey.</P>
+                                <P>Thank you for your consideration ♥</P>
+                            </Content>
                         </ThreeColChild>
                         <ThreeColChild>
                             <img src="/voices.jpg" className="mb-16"/>
@@ -406,7 +430,7 @@ const Bullet = ({className, children, dark}: {className?: string, children: Reac
 )
 
 const H1 = ({className, children}: {className?: string, children: ReactNode}) => (
-    <h1 className={classNames("text-4xl font-bold mb-4", className)}>
+    <h1 className={classNames("text-4xl font-bold mb-8", className)}>
         {children}
     </h1>
 )
@@ -414,5 +438,23 @@ const H1 = ({className, children}: {className?: string, children: ReactNode}) =>
 const Website = ({className, href, img}: {className?: string, href: string, img: string}) => (
     <a href={href} className={classNames("block transform hover:scale-105 transition", className)}>
         <img src={img} className="rounded-lg"/>
+    </a>
+)
+
+const Content = ({children, className}: {children: ReactNode, className?: string}) => (
+    <div className={classNames("font-body text-lg leading-normal", className)}>
+        {children}
+    </div>
+)
+
+const P = ({children, className}: {children: ReactNode, className?: string}) => (
+    <p className={classNames("my-4", className)}>
+        {children}
+    </p>
+)
+
+const A = ({children, className, href}: {children: ReactNode, className?: string, href?: string}) => (
+    <a className={classNames("text-bblue underline", className)} href={href}>
+        {children}
     </a>
 )
